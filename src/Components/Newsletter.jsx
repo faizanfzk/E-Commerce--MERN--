@@ -23,7 +23,7 @@ export const HNews = () => {
             fontWeight={"bold"}
             textAlign="center"
           >
-            Welcome to our Website {" "}
+            Welcome to  <span style={{color:"yellowgreen"}}> FZK MART</span> {" "}
           </Heading>
           <Heading
             as={"h2"}
@@ -51,7 +51,7 @@ export const HNews = () => {
         <Link to="/signup" style={
                         {textDecoration:"none",
                         borderRadius:"50px",
-                        // marginLeft:"25%",
+                        marginLeft:"45%",
                       
                         padding:"15px",
                         paddingLeft:"10px",

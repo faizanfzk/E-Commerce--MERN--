@@ -4,15 +4,17 @@ import './App.css'
 import { Products } from './Components/Products'
 import { Home } from './Components/Home'
 import { HNews } from './Components/Newsletter'
+import { Footer } from './Components/Footer'
 
 function App() {
-  const [count, setCount] = useState(0)
+ 
 
   return (
-    <div className="App">
+    <div>
       <Home/>
    {/* <Products/>   */}
    {/* <HNews/> */}
+   {/* <Footer/> */}
     </div>
   )
 }

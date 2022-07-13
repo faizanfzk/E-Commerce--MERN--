@@ -1,3 +1,4 @@
+import { Footer } from "./Footer"
 import { HNews } from "./Newsletter"
 
 export const Home=()=>{
@@ -27,6 +28,7 @@ export const Home=()=>{
   
 </div>
 <HNews/>
+<Footer/>
         </>
     )
 }
