@@ -16,6 +16,8 @@ import {
   import {useEffect,useState} from "react"
   import { useParams } from 'react-router-dom';
   import axios from "axios"
+import { Navbar } from './Navbar';
+import { Footer } from './Footer';
 //   import { addProductCard } from '../Redux/Products/action';
   export const Product=()=>{
    const [data,setData]=useState([])
@@ -41,7 +43,10 @@ import {
      
   
     return (
-      <Container maxW={'7xl'}>
+      <Container maxW={'8xl'}>
+        <Navbar/>
+      <div style={{textAlign:"center" ,fontSize:"30px",fontWeight:"bold",color:"teal"}}> {loading && <div>...Loading</div>}</div>
+      <div style={{textAlign:"center" ,fontSize:"30px",fontWeight:"bold",color:"teal"}}> {error && <div>...Something Went Wrong</div>}</div>
         <SimpleGrid
           columns={{ base: 1, lg: 2 }}
           spacing={{ base: 8, md: 10 }}
@@ -124,6 +129,7 @@ import {
             </Stack>
           </Stack>
         </SimpleGrid>
+        <Footer/>
       </Container>
     );
   }
