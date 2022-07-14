@@ -80,7 +80,7 @@ export const Navbar = () => {
               style={{
                 border: "1px solid rgb(0,25,105) ",
                 padding: "15px",
-                color: "blue",
+                color: "rgb(0,25,105)",
                 borderRadius: "50px",
                 width: "100px",
                 textDecoration: "none",
