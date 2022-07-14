@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react"
 import axios from "axios"
+import { Navbar } from "./Navbar"
 
 
 export const Products = () => {
@@ -21,6 +22,8 @@ export const Products = () => {
     console.log(data)
    
   return (
+    <div style={{width:"100%"}}>
+      <Navbar/>
     <div style={{width:"100%", display:"grid",gridTemplateColumns:"repeat(4,250px)",justifyContent:"space-around"}} >
         {data.map((e)=>{
             return(
@@ -39,6 +42,7 @@ export const Products = () => {
                 </div>
             )
         })}
+    </div>
     </div>
   )
 }

@@ -1,9 +1,12 @@
 import { Footer } from "./Footer"
+import { Navbar } from "./Navbar"
 import { HNews } from "./Newsletter"
 
 export const Home=()=>{
     return(
-        <>
+        <div style={{width:"100%"}}>
+          <div >
+     <Navbar/>
         <div style={{height:'300px',backgroundColor:"black"}} id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
   <div className="carousel-inner">
     <div className="carousel-item active">
@@ -29,6 +32,7 @@ export const Home=()=>{
 </div>
 <HNews/>
 <Footer/>
-        </>
+        </div>
+        </div>
     )
 }
