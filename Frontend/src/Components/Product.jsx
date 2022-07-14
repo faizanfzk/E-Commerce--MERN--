@@ -13,29 +13,33 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react';
   import { MdLocalShipping } from 'react-icons/md';
-  import {useParams} from "react-router-dom"
-  import {useDispatch, useSelector} from "react-redux"
-  import {useEffect} from "react"
-  import { getSingleProduct } from "../Redux/Products/action"
-  import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
+  import {useEffect,useState} from "react"
+  import { useParams } from 'react-router-dom';
+  import axios from "axios"
 //   import { addProductCard } from '../Redux/Products/action';
   export const Product=()=>{
-   
-      const {id}=useParams();
-   
-      const dispatch=useDispatch()
-      const currentProduct = useSelector((store)=>store.ecommerceData.currentProduct)
-      console.log(currentProduct)
-      useEffect(() => {
-         if(id){
-             dispatch(getSingleProduct(id))
-         }
-      }, [dispatch,id])
-      console.log(currentProduct)
+   const [data,setData]=useState([])
+   const[loading,setLoading]=useState(false)
+   const [error,setError]=useState(false)
+   const Params=useParams()
 
-    //   const addToCartHandler=()=>{
-    //     currentProduct && dispatch(addProductCard(currentProduct))
-    //   }
+   useEffect(()=>{
+    setLoading(true)
+    const {_id}=Params
+    axios({
+      url:`https://ecomerce-mern.herokuapp.com/products/${_id}`,
+      method:"GET"
+    })
+    .then((res)=>{
+      setLoading(false)
+      setData(res.data)
+    })
+    .catch((err)=>{
+      setError(true)
+    })
+   },[])
+     
+  
     return (
       <Container maxW={'7xl'}>
         <SimpleGrid
@@ -46,7 +50,7 @@ import {
             <Image
               rounded={'md'}
               alt={'product image'}
-              src={currentProduct.images}
+              src={data.images}
            
               fit={'contain'}
               align={'center'}
@@ -60,13 +64,13 @@ import {
                 lineHeight={1.1}
                 fontWeight={600}
                 fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
-                {currentProduct.name}
+                {data.name}
               </Heading>
               <Text
                 color={useColorModeValue('gray.900', 'gray.400')}
                 fontWeight={300}
                 fontSize={'2xl'}>
-               ₹ { currentProduct.price}
+               ₹ { data.price}
               </Text>
               {/* <Flex >
                 {Rating({rating : Number(currentProduct.rating?.rate)})}
@@ -86,7 +90,7 @@ import {
                   color={useColorModeValue('gray.500', 'gray.400')}
                   fontSize={'2xl'}
                   fontWeight={'300'}>
-                {currentProduct.description}
+                {data.description}
                 </Text>
                
               </VStack>

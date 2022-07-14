@@ -24,7 +24,7 @@ export const fetchData = (payload) => {
   return (dispatch) => {
     dispatch(fetchdataRequest());
     axios({
-      url: " https://ecomerce-mern.herokuapp.com/products",
+      url:"https://ecomerce-mern.herokuapp.com/products",
       method: "get",
       params: {
         ...payload,
