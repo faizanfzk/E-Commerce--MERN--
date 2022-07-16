@@ -95,7 +95,7 @@ import { Footer } from './Footer';
                   color={useColorModeValue('gray.500', 'gray.400')}
                   fontSize={'2xl'}
                   fontWeight={'300'}>
-                {data.description}
+              <span style={{fontWeight:"bold"}}>Description :</span>  {data.description}
                 </Text>
                
               </VStack>
