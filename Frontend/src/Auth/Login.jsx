@@ -6,14 +6,50 @@ import {
     Input,
     Checkbox,
     Stack,
-    Link,
+ Link,
     Button,
     Heading,
     Text,
     useColorModeValue,
   } from '@chakra-ui/react';
-  
+  import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+ import { useDispatch } from 'react-redux'; 
+import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+import { isLogin } from '../Redux/Auth/action';
   export const Login=()=>{
+    const [user,setUser]=useState({
+        email:"",
+        password:""
+    })
+    const Navigate=useNavigate();
+    const dispatch=useDispatch()
+
+    const onChangeInput=(e)=>{
+        const {id,value}=e.target;
+        setUser({...user,[id]:value})
+    }
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        axios.post("https://ssense-api.herokuapp.com/login", user)
+        .then((res)=>{
+            localStorage.setItem("loginUser",JSON.stringify(res.data))
+            dispatch(isLogin(res.data))
+            setTimeout(()=>{
+                Navigate("/")
+            },2000);
+            setUser({
+                email:"",
+                password:""
+            })
+            alert("Login Successfull ! ! !")
+        })
+        .catch((e)=>{
+            alert("Login Failed")
+   
+        })
+    }
     return (
       <Flex
         minH={'100vh'}
@@ -35,11 +71,13 @@ import {
             <Stack spacing={4}>
               <FormControl id="email">
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" />
+                <Input type="email" value={user.email} onChange={(e)=>{
+                    onChangeInput(e)
+                }} />
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input type="password" />
+                <Input type="password" value={user.password} onChange={(e)=>onChangeInput(e)} />
               </FormControl>
               <Stack spacing={10}>
                 <Stack
@@ -47,13 +85,15 @@ import {
                   align={'start'}
                   justify={'space-between'}>
                   <Checkbox>Remember me</Checkbox>
-                  <Link color={'blue.400'}>Forgot password?</Link>
+                  <NavLink to="/signup" color={'blue.400'}>Register Now</NavLink>
                 </Stack>
                 <Button
                   bg={'blue.400'}
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
+                  }} onClick={(e)=>{
+                    handleSubmit(e)
                   }}>
                   Sign in
                 </Button>
