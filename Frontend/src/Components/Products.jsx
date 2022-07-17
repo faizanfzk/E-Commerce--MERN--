@@ -1,13 +1,13 @@
 import React, { useEffect,useState } from "react"
-import { Box, Flex } from "@chakra-ui/react"
+import { Box,Text, Flex } from "@chakra-ui/react"
 
 import axios from "axios"
 
 import { Link as RouterLink} from "react-router-dom"
 import { Navbar } from "./Navbar"
  import { Footer } from "./Footer"
-
-
+ import { Spinner } from '@chakra-ui/react'
+ import { Select } from '@chakra-ui/react'
 import {
 
   Link,
@@ -19,6 +19,7 @@ export const Products=()=>{
   const [data,setData]=useState([])
   const[loading,setLoading]=useState(false)
   const [error,setError]=useState(false)
+  const [sort,setSort]=useState("asc")
 
   useEffect(()=>{
     setLoading(true)
@@ -37,15 +38,31 @@ export const Products=()=>{
     })
   },[])
 
-
+const handleSort=(e)=>{
+setSort(e.target.value)
+}
+sort=="asc" ? data.sort((a,b)=>a.price-b.price):data.sort((a,b)=>b.price-a.price);
     return(
         <Box>
+  
    
      <Box>
     <Navbar/>
        
-      <div style={{textAlign:"center" ,fontSize:"30px",fontWeight:"bold",color:"teal"}}> {loading && <div>...Loading</div>}</div>
+      <div style={{textAlign:"center" ,fontSize:"30px",fontWeight:"bold",color:"teal"}}> {loading && <div>Loading  <Spinner size='xl' /></div>}</div>
       <div style={{textAlign:"center" ,fontSize:"30px",fontWeight:"bold",color:"teal"}}> {error && <div>...Something Went Wrong</div>}</div>
+        <Box> 
+          <Text pl={"15px"}>Sort By Price</Text> 
+              
+        <Select w={"150px"} pl={"8px"}  value={sort} onChange={handleSort}>
+       
+  <option value='asc'>Low to High</option>
+  <option value='desc'>High to Low</option>
+ 
+</Select>
+</Box>
+
+        
          <Flex flexWrap="wrap" justifyContent="space-between">
              {data.map((e)=>{
                  return(

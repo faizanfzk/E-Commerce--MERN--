@@ -12,6 +12,7 @@ import {
     StackDivider,
     useColorModeValue,
   } from '@chakra-ui/react';
+  import { Spinner } from '@chakra-ui/react'
   import { MdLocalShipping } from 'react-icons/md';
   import {useEffect,useState} from "react"
   import { useParams } from 'react-router-dom';
@@ -45,7 +46,7 @@ import { Footer } from './Footer';
     return (
       <Container maxW={'8xl'}>
         <Navbar/>
-      <div style={{textAlign:"center" ,fontSize:"30px",fontWeight:"bold",color:"teal"}}> {loading && <div>...Loading</div>}</div>
+      <div style={{textAlign:"center" ,fontSize:"30px",fontWeight:"bold",color:"teal"}}> {loading && <div>Loading <Spinner size='xl' /></div>}</div>
       <div style={{textAlign:"center" ,fontSize:"30px",fontWeight:"bold",color:"teal"}}> {error && <div>...Something Went Wrong</div>}</div>
         <SimpleGrid
           columns={{ base: 1, lg: 2 }}

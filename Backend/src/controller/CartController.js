@@ -36,14 +36,14 @@ router.get("/", async (req, res) => {
   try {
     const cart = await Cart.find().populate("Products").lean().exec();
     // const cart = await Cart.find().lean().exec();
-    let TotalPrice = 0
-    let Products = cart[0].products
-    let TotalProducts = Products.length;
-    for (let i = 0; i < Products.length; i++) {
-      TotalPrice += Products[i].price;
-    }
+    // let TotalPrice = 0
+    // let Products = cart[0].products
+    // let TotalProducts = Products.length;
+    // for (let i = 0; i < Products.length; i++) {
+    //   TotalPrice += Products[i].price;
+   // }
     // console.log(Products,TotalPrice,TotalProducts);
-    return res.status(200).send({ Cart: cart,TotalPrice,TotalProducts});
+    return res.status(200).send({ Cart: cart});
   } catch (error) {
     return res.status(500).send({ error: error.message });
   }
