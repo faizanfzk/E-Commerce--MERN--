@@ -1,9 +1,13 @@
 import {isLoginReducer} from "./Auth/reducer"
-import { createStore,combineReducers,applyMiddleware } from "redux"
+import { legacy_createStore,combineReducers,applyMiddleware,compose } from "redux"
+import productReducer from './products/reducer';
 
 import thunk from "redux-thunk"
 
 const rootReducer=combineReducers({
-    isLogin:isLoginReducer
+    isLogin:isLoginReducer,
+    ecommerceData: productReducer,
 })
-export const store=createStore(rootReducer,applyMiddleware(thunk))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store=legacy_createStore(rootReducer,composeEnhancers(
+    applyMiddleware(thunk)))

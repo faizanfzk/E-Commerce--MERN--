@@ -16,32 +16,33 @@ import {
   import { MdLocalShipping } from 'react-icons/md';
   import {useEffect,useState} from "react"
   import { useParams } from 'react-router-dom';
-  import axios from "axios"
+
+import { useDispatch, useSelector } from 'react-redux';
+  import {  getSingleProduct } from '../Redux/products/action';
+// import { MdLocalShipping } from 'react-icons/md';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-//   import { addProductCard } from '../Redux/Products/action';
+  import { addProductCart } from '../Redux/products/action';
   export const Product=()=>{
-   const [data,setData]=useState([])
-   const[loading,setLoading]=useState(false)
-   const [error,setError]=useState(false)
-   const Params=useParams()
+ 
 
-   useEffect(()=>{
-    setLoading(true)
-    const {_id}=Params
-    axios({
-      url:`https://ecomerce-mern.herokuapp.com/products/${_id}`,
-      method:"GET"
-    })
-    .then((res)=>{
-      setLoading(false)
-      setData(res.data)
-    })
-    .catch((err)=>{
-      setError(true)
-    })
-   },[])
-     
+  const { _id } = useParams();
+
+  const dispatch = useDispatch();
+  const items = useSelector((store) => store.ecommerceData);
+  let data=items.currentProduct;
+  let loading=items.loading;
+  let error=items.error;
+  useEffect(() => {
+      if(_id){
+          dispatch(getSingleProduct(_id))
+      }
+  },[dispatch, _id]);
+   console.log(data);
+
+  const addToCartHandler = () => {
+      data && dispatch(addProductCart(data))
+  };
   
     return (
       <Container maxW={'8xl'}>
@@ -78,9 +79,7 @@ import { Footer } from './Footer';
                 fontSize={'2xl'}>
                ₹ { data.price}
               </Text>
-              {/* <Flex >
-                {Rating({rating : Number(currentProduct.rating?.rate)})}
-              </Flex> */}
+            
             </Box>
   
             <Stack
@@ -118,7 +117,7 @@ import { Footer } from './Footer';
                 transform: 'translateY(2px)',
                 boxShadow: 'lg',
               }}
-            //   onClick={addToCartHandler}
+              onClick={addToCartHandler}
               
               >
               Add to cart

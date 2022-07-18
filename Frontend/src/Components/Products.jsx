@@ -13,30 +13,33 @@ import {
   Link,
     Image,
   } from '@chakra-ui/react';
-
+  import { useSelector, useDispatch } from 'react-redux';
+  import { fetchData } from "../Redux/Products/action" 
+  import { useSearchParams } from "react-router-dom"
 
 export const Products=()=>{
-  const [data,setData]=useState([])
-  const[loading,setLoading]=useState(false)
-  const [error,setError]=useState(false)
+ 
   const [sort,setSort]=useState("asc")
 
-  useEffect(()=>{
-    setLoading(true)
-     axios({
-        url:"https://ecomerce-mern.herokuapp.com/products",
-        method:"GET"
-    })
-    .then((res)=>{
-        setLoading(false)
-        setData(res.data)
-        
-    })
-    .catch((err)=>{
-        setError(true)
-        console.log(err.message)
-    })
-  },[])
+
+  const items = useSelector((store) => store.ecommerceData);
+let  data=items.products;
+let loading=items.loading;
+let error=items.error;
+
+console.log(data)
+  const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+      if(data?.length === 0)
+      {
+          let params = {
+              category: searchParams.getAll('category')
+          }
+          dispatch(fetchData(params));
+      }
+  },[dispatch, data?.length, searchParams]);
+  
 
 const handleSort=(e)=>{
 setSort(e.target.value)
@@ -66,7 +69,7 @@ sort=="asc" ? data.sort((a,b)=>a.price-b.price):data.sort((a,b)=>b.price-a.price
          <Flex flexWrap="wrap" justifyContent="space-between">
              {data.map((e)=>{
                  return(
-                     <Link as={RouterLink} to={`/products/${e._id}`}>
+                     <Link style={{textDecoration:"none"}} as={RouterLink} to={`/products/${e._id}`}>
                       <div style={{display:"flex",border:"1px solid yellow",marginBottom:"5px",justifyContent:"space-between",width:"300px",boxShadow:"rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"}} key={e._id}>
                 <div style={{width:"300px",fontWeight:"bold",margin:"5px"}}>
                 <img style={{height:"300px",width:"290px"}} src={e.images[0]} alt="products" />            
