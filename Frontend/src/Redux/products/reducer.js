@@ -71,6 +71,37 @@ const reducer = (state = initialState, action) => {
                         error: payload,
                         loading: false
                     }
+                    case types.FETCH_CART_REQUEST:
+                        return {
+                            ...state,
+                            error:'',
+                            loading: true
+                        }
+                     case types.FETCH_CART_SUCCESS:
+                        return {
+                            ...state,
+                            error: '',
+                            cart: [...payload],
+                            loading: false
+                            }
+                    case types.FETCH_CART_FAILURE:
+                        return {
+                            ...state,
+                            error: payload,
+                            loading: false
+                        }
+                        case types.REMOVE_PRODUCT_CART_REQUEST:
+                    return {
+                        ...state,
+                        error:'',
+                        loading: true
+                    };
+                case types.REMOVE_PRODUCT_CART_FAILURE:
+                    return {
+                        ...state,
+                        error: payload,
+                        loading: false,
+                    };
                 default:
                     return state;
     }
