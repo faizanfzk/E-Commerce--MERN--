@@ -181,7 +181,7 @@ export const addOrder = (payload) => (dispatch) => {
     dispatch(addOrderRequest());
     const orderPayload = [];
     for(let product of payload){
-        product && orderPayload.pudh(axios.post('/orders', product));
+        product && orderPayload.pudh(axios.post('http://localhost:8080/orders', product));
     }
 
     Promise.all(orderPayload)
@@ -224,30 +224,30 @@ export const emptyCart = (payload) => (dispatch) => {
     .catch((e) => dispatch(emptyCartFailure()));
 };
 
-// const fetchOrdersRequest = (payload) => {
-//     return {
-//         type: types.FETCH_ORDERS_REQUEST,
-//         payload
-//     }
-// }
+ const fetchOrdersRequest = (payload) => {
+    return {
+        type: types.FETCH_ORDERS_REQUEST,
+        payload
+    }
+}
 
-// const fetchOrdersSuccess = (payload) => {
-//     return {
-//         type: types.FETCH_ORDERS_SUCCESS,
-//         payload
-//     }
-// }
+const fetchOrdersSuccess = (payload) => {
+    return {
+        type: types.FETCH_ORDERS_SUCCESS,
+        payload
+    }
+}
 
-// const fetchOrdersFailure = (payload) => {
-//     return {
-//         type: types.FETCH_ORDERS_FAILURE,
-//         payload
-//     };
-// };
+const fetchOrdersFailure = (payload) => {
+    return {
+        type: types.FETCH_ORDERS_FAILURE,
+        payload
+    };
+};
 
-// export const fetchOrders = (paylaod) => (dispatch) => {
-//     dispatch(fetchOrdersRequest());
-//     axios.get('/orders')
-//     .then((r) => dispatch(fetchOrdersSuccess(r.data)))
-//     .catch((e) => dispatch(fetchOrdersFailure(e.data)));
-// };
+export const fetchOrders = (paylaod) => (dispatch) => {
+    dispatch(fetchOrdersRequest());
+    axios.get('http://localhost:8080/orders')
+    .then((r) => dispatch(fetchOrdersSuccess(r.data)))
+    .catch((e) => dispatch(fetchOrdersFailure(e.data)));
+};

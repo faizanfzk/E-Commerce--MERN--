@@ -102,6 +102,25 @@ const reducer = (state = initialState, action) => {
                         error: payload,
                         loading: false,
                     };
+                    case types.FETCH_ORDERS_REQUEST:
+                        return {
+                            ...state,
+                            error:'',
+                            loading: true
+                        }
+                     case types.FETCH_ORDERS_SUCCESS:
+                        return {
+                            ...state,
+                            error: '',
+                            orders: [...payload],
+                            loading: false
+                            }
+                    case types.FETCH_ORDERS_FAILURE:
+                        return {
+                            ...state,
+                            error: payload,
+                            loading: false
+                        }
                 default:
                     return state;
     }

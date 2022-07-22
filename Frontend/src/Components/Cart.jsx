@@ -1,7 +1,8 @@
 import { Box, Heading, Text, Stack, Image, useColorModeValue, Button } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Checkout } from '../Components/Checkout';
+import { Checkout } from './CheckOut';
+
 import { deleteProductCart } from '../Redux/products/action';
 import { addOrder } from '../Redux/products/action';
 export const Cart = () => {
@@ -35,7 +36,7 @@ export const Cart = () => {
                 );
             })}
             
-            {/* <Checkout cart={cart} checkoutHandler={checkoutHandler}/> */}
+            <Checkout cart={cart} checkoutHandler={checkoutHandler}/>
         </Box>
     );
 };
@@ -85,7 +86,7 @@ function CartItem({ name, image, price, description, removeProduct, _id}) {
                         fontWeight={'300'}>
                            ₹ {price}
                         </Text>
-                        <Button variant={'solid'} leftIcon={<DeleteIcon/>} colorScheme='teal' onClick={() => removeProduct(id)}>Remove</Button>
+                        <Button variant={'solid'} leftIcon={<DeleteIcon/>} colorScheme='teal' onClick={() => removeProduct(_id)}>Remove</Button>
                     </Stack>
                 </Box>
             </Stack>
