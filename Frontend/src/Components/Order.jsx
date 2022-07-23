@@ -23,8 +23,8 @@ export const Orders = () => {
                 {orders.map((product) => {
                     return <ProductSimple 
                                 key={product.id} 
-                                image={product.image} 
-                                title={product.title} 
+                                image={product.images} 
+                                title={product.name} 
                                 price={product.price} />
                 })}
             </Box>

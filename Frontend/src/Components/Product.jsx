@@ -40,8 +40,11 @@ import { Footer } from './Footer';
   },[dispatch, _id]);
    console.log(data);
 
-  const addToCartHandler = () => {
-      data && dispatch(addProductCart(data))
+  const addToCartHandler = (id) => {
+   let payload= {
+products:id
+    } 
+    data && dispatch(addProductCart(payload))
   };
   
     return (
@@ -117,7 +120,7 @@ import { Footer } from './Footer';
                 transform: 'translateY(2px)',
                 boxShadow: 'lg',
               }}
-              onClick={addToCartHandler}
+              onClick={()=>addToCartHandler(_id)}
               
               >
               Add to cart

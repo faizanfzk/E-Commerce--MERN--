@@ -14,9 +14,11 @@ import {
     Flex,
     Text
   } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
-export const Checkout = ({ cart, checkoutHandler }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+export const Checkout = ({ Cart, checkoutHandler }) => {
+    // const { isOpen, onOpen, onClose } = useDisclosure()
+    // console.log("open",isOpen, onOpen, onClose )
     return (
       <Box>
         <Button
@@ -32,18 +34,18 @@ export const Checkout = ({ cart, checkoutHandler }) => {
                 transform: 'translateY(2px)',
                 boxShadow: 'lg',
               }}
-              onClick={onOpen}
+             // onClick={onOpen}
               >
-                CheckOut
+              <Link to="/payment">Checkout</Link>
             </Button>
-  
+{/*   
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Confirm Purchase</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              { cart.map(product => {
+              { Cart.map(product => {
                 return (
                     <Box key={product.id} mb='1rem'>
                         <Flex>
@@ -72,7 +74,7 @@ export const Checkout = ({ cart, checkoutHandler }) => {
               <Button variant='ghost'>Secondary Action</Button>
             </ModalFooter>
           </ModalContent>
-        </Modal>
+        </Modal> */}
       </Box>
     )
   }

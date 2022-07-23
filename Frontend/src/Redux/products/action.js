@@ -89,8 +89,9 @@ const addProductCartFailure = (payload) => {
 };
 
 export const addProductCart = (product) => (dispatch) => {
+    console.log("product",product)
     dispatch(addProductCartRequest());
-    axios.post(' http://localhost:8080/cart', product)
+    axios.post('https://ecomerce-mern.herokuapp.com/cart', product)
     .then((r) => dispatch(addProductCartSuccess(r.data)))
     .catch((e) => dispatch(addProductCartFailure(e.data)));
     
@@ -120,8 +121,11 @@ const fetchCartFailure = (payload) => {
 
 export const fetchCart = (paylaod) => (dispatch) => {
     dispatch(fetchCartRequest());
-    axios.get('http://localhost:8080/cart')
-    .then((r) => dispatch(fetchCartSuccess(r.data)))
+    axios.get('https://ecomerce-mern.herokuapp.com/cart')
+    // axios.get('http://localhost:5050/cart')
+    .then((r) =>{
+        console.log("Redux data",r.data) 
+        dispatch(fetchCartSuccess(r.data.Cart))})
     .catch((e) => dispatch(fetchCartFailure(e.data)));
 };
 
@@ -146,9 +150,10 @@ const deleteProductCartFailure = (payload) => {
     };
 };
 
-export const deleteProductCart = (_id) => dispatch => {
+export const deleteProductCart = (id) => dispatch => {
+    console.log("id",id)
     dispatch(deleteProductCartRequest());
-    axios.delete(` http://localhost:8080/cart${_id}`)
+    axios.delete(`https://ecomerce-mern.herokuapp.com/cart/${id}`)
     .then((r) => {
         // console.log("response:", r); 
         dispatch(deleteProductCartSuccess(r.data))
@@ -181,7 +186,7 @@ export const addOrder = (payload) => (dispatch) => {
     dispatch(addOrderRequest());
     const orderPayload = [];
     for(let product of payload){
-        product && orderPayload.pudh(axios.post('http://localhost:8080/orders', product));
+        product && orderPayload.pudh(axios.post('http://localhost:5050/orders', product));
     }
 
     Promise.all(orderPayload)
@@ -247,7 +252,7 @@ const fetchOrdersFailure = (payload) => {
 
 export const fetchOrders = (paylaod) => (dispatch) => {
     dispatch(fetchOrdersRequest());
-    axios.get('http://localhost:8080/orders')
+    axios.get('http://localhost:5050/orders')
     .then((r) => dispatch(fetchOrdersSuccess(r.data)))
     .catch((e) => dispatch(fetchOrdersFailure(e.data)));
 };

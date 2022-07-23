@@ -3,19 +3,24 @@ import { DeleteIcon } from '@chakra-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { Checkout } from './CheckOut';
 
-import { deleteProductCart } from '../Redux/products/action';
+import { deleteProductCart, fetchCart } from '../Redux/products/action';
 import { addOrder } from '../Redux/products/action';
+import { useEffect } from 'react';
 export const Cart = () => {
-    const cart = useSelector((store) => store.ecommerceData.cart);
+    const Cart = useSelector((store) => store.ecommerceData.cart);
+    console.log("cart",Cart)
     const dispatch = useDispatch();
-    const removeProduct = (_id) => {
-        console.log('Going TO remove product', _id);
-        dispatch(deleteProductCart(_id));
-    }
+    // const removeProduct = (_id) => {
+    //     console.log('Going TO remove product', _id);
+    //     dispatch(deleteProductCart(_id));
+    // }
+    useEffect(()=>{
+        dispatch(fetchCart())
+    },[dispatch,fetchCart,deleteProductCart])
 
     const checkoutHandler = () => {
         //to add products to data base
-        dispatch(addOrder(cart));
+        dispatch(addOrder(Cart));
     }
 
     return (
@@ -23,27 +28,36 @@ export const Cart = () => {
             <Heading as='h2' size='xl' textAlign='center'>
                 Cart
             </Heading>
-            {cart.length && cart.map((product) => {
+            {Cart.length && Cart.map((product,i) => {
                 return (
-                     <CartItem 
-                     key={product._id} 
-                     title={product.name} 
-                    //  id={product._id}
-                     price= {product.price} 
-                     description={product.description} 
-                     image={product.images}
-                     removeProduct={removeProduct}/>
+                     <CartItem product={product}
+                     key={i} 
+                     title={product.products.name} 
+                     id={product._id}
+                     price= {product.products.price} 
+                     description={product.products.description} 
+                     image={product.products.images[0]}
+                    // removeProduct={removeProduct}
+                     />
                 );
             })}
             
-            <Checkout cart={cart} checkoutHandler={checkoutHandler}/>
+            <Checkout Cart={Cart} checkoutHandler={checkoutHandler}/>
         </Box>
     );
 };
 
-function CartItem({ name, image, price, description, removeProduct, _id}) {
+function CartItem({ title,id,price,image,description}) {
+   // console.log("ajay", title,id,price,image,description)
+    const dispatch = useDispatch();
+    const removeProduct = (id) => {
+        console.log('Going TO remove product', id);
+        dispatch(deleteProductCart(id));
+    }
+    // console.log("ajay", product)
     return (
-        <Box border={'1px solid red'} rounded='lg' width={'fit-content'} margin='auto' marginBottom='2rem'>
+        
+         <Box border={'1px solid red'} rounded='lg' width={'fit-content'} margin='auto' marginBottom='2rem'>
             <Stack direction={{base: 'column', md: 'row'}} justifyContent='center' alignItems='center'>
                 <Box 
               height={'300px'} 
@@ -74,7 +88,7 @@ function CartItem({ name, image, price, description, removeProduct, _id}) {
                 </Box>
                 <Box height={'300px'} width='300px'>
                     <Stack p={2}>
-                        <Heading as='h3' size='lg'>{name}</Heading>
+                        <Heading as='h3' size='lg'>{title}</Heading>
                         <Box overflow={'hidden'} whiteSpace='nowrap'>
                         <Text> 
                             {description}
@@ -86,7 +100,7 @@ function CartItem({ name, image, price, description, removeProduct, _id}) {
                         fontWeight={'300'}>
                            ₹ {price}
                         </Text>
-                        <Button variant={'solid'} leftIcon={<DeleteIcon/>} colorScheme='teal' onClick={() => removeProduct(_id)}>Remove</Button>
+                        <Button variant={'solid'} leftIcon={<DeleteIcon/>} colorScheme='teal' onClick={() => removeProduct(id)}>Remove</Button>
                     </Stack>
                 </Box>
             </Stack>
