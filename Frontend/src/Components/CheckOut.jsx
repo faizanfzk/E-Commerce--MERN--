@@ -36,7 +36,7 @@ export const Checkout = ({ Cart, checkoutHandler }) => {
               }}
              // onClick={onOpen}
               >
-              <Link to="/payment">Checkout</Link>
+              <Link to="/address">Checkout</Link>
             </Button>
 {/*   
         <Modal isOpen={isOpen} onClose={onClose}>
