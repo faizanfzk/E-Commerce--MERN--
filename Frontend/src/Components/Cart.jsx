@@ -29,9 +29,9 @@ export const Cart = () => {
 console.log("sum",sum)
     return (
         <Box>
-            {/* <Heading as='h2' size='xl' textAlign='center'>
+            <Heading as='h2' size='xl' textAlign='center'>
                 Cart
-            </Heading> */}
+            </Heading>
             {Cart.length && Cart.map((product,i) => {
                 return (
                      <CartItem product={product}
@@ -45,7 +45,7 @@ console.log("sum",sum)
                      />
                 );
             })}
-            <Heading as={"h2"} color={"rgb(49,151,149)"} >{Cart.length==0 ? <div><Link to="/products">Click Me </Link></div> :<div>Total Amount : ₹ {sum}</div>}</Heading>
+            <Heading as={"h2"} color={"rgb(49,151,149)"} textAlign={"center"} >{Cart.length==0 ? <div><Link to="/products">Click Me </Link></div> :<div>Total Amount : ₹ {sum}</div>}</Heading>
             <Checkout Cart={Cart} checkoutHandler={checkoutHandler}/>
         </Box>
     );

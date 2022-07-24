@@ -67,11 +67,11 @@ sort=="asc" ? data.sort((a,b)=>a.price-b.price):data.sort((a,b)=>b.price-a.price
 
         
          <Flex flexWrap="wrap" justifyContent="space-between">
-             {data.map((e)=>{
+             {data.map((e,i)=>{
                  return(
                      <Link style={{textDecoration:"none"}} as={RouterLink} to={`/products/${e._id}`}>
-                      <div style={{display:"flex",border:"1px solid yellow",marginBottom:"5px",justifyContent:"space-between",width:"300px",boxShadow:"rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"}} key={e._id}>
-                <div style={{width:"300px",fontWeight:"bold",margin:"5px"}}>
+                      <div style={{display:"flex",border:"1px solid yellow",marginBottom:"5px",justifyContent:"space-between",width:"300px",boxShadow:"rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset"}} key={e.i}>
+                <div style={{width:"300px",fontWeight:"bold",margin:"5px"}} key={i}>
                 <img style={{height:"300px",width:"290px"}} src={e.images[0]} alt="products" />            
                     <div style={{display:"flex",justifyContent:"space-around",color:"yellowgreen"}}>
                 <p style={{width:"100px"}}>₹ {e.price}</p>
