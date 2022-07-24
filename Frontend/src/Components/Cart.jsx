@@ -2,7 +2,7 @@ import { Box, Heading, Text, Stack, Image, useColorModeValue, Button } from '@ch
 import { DeleteIcon } from '@chakra-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { Checkout } from './CheckOut';
-
+import { Link } from 'react-router-dom';
 import { deleteProductCart, fetchCart } from '../Redux/products/action';
 import { addOrder } from '../Redux/products/action';
 import { useEffect } from 'react';
@@ -22,12 +22,16 @@ export const Cart = () => {
         //to add products to data base
         dispatch(addOrder(Cart));
     }
-
+    let sum=0;
+    for(let i=0;i<Cart.length;i++){
+        sum+=Number(Cart[i].products.price)
+    }
+console.log("sum",sum)
     return (
         <Box>
-            <Heading as='h2' size='xl' textAlign='center'>
+            {/* <Heading as='h2' size='xl' textAlign='center'>
                 Cart
-            </Heading>
+            </Heading> */}
             {Cart.length && Cart.map((product,i) => {
                 return (
                      <CartItem product={product}
@@ -41,23 +45,23 @@ export const Cart = () => {
                      />
                 );
             })}
-            
+            <Heading as={"h2"} color={"rgb(49,151,149)"} >{Cart.length==0 ? <div><Link to="/products">Click Me </Link></div> :<div>Total Amount : ₹ {sum}</div>}</Heading>
             <Checkout Cart={Cart} checkoutHandler={checkoutHandler}/>
         </Box>
     );
 };
 
 function CartItem({ title,id,price,image,description}) {
-   // console.log("ajay", title,id,price,image,description)
+
     const dispatch = useDispatch();
     const removeProduct = (id) => {
         console.log('Going TO remove product', id);
         dispatch(deleteProductCart(id));
     }
-    // console.log("ajay", product)
+   
     return (
         
-         <Box border={'1px solid red'} rounded='lg' width={'fit-content'} margin='auto' marginBottom='2rem'>
+         <Box  rounded='lg' width={'fit-content'} marginBottom='2rem'>
             <Stack direction={{base: 'column', md: 'row'}} justifyContent='center' alignItems='center'>
                 <Box 
               height={'300px'} 
@@ -104,6 +108,7 @@ function CartItem({ title,id,price,image,description}) {
                     </Stack>
                 </Box>
             </Stack>
+        
         </Box>
     ) 
 }

@@ -30,6 +30,7 @@ export const Checkout = ({ Cart, checkoutHandler }) => {
               bg={useColorModeValue('gray.900', 'gray.50')}
               color={useColorModeValue('white', 'gray.900')}
               textTransform={'uppercase'}
+             float={"center"}
               _hover={{
                 transform: 'translateY(2px)',
                 boxShadow: 'lg',

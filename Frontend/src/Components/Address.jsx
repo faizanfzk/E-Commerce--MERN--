@@ -26,7 +26,7 @@ export const Address = () => {
                 <label>State</label>
                 <input id="smallLabel" type="text"/>
                 <label>Zip</label>
-                <input class="zipCode" id="smallLabel" type="text"/>
+                <input className="zipCode" id="smallLabel" type="text"/>
             </div>
             <label>Phone</label>
             <input type="text"/>
