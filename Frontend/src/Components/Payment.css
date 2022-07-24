@@ -58,6 +58,18 @@ input[type="reset"]{
 input[type="reset"]{
     background-color:rgb(44,122,123);
 }
+.sub{
+        
+    background-color: rgb(39, 184, 136);
+    border: 1px;
+    width: 80%;
+    color: aliceblue;
+    padding: 12px 15px;
+    border-radius: 5px;
+    cursor:pointer;
+    margin: 3px 108px;
+}
+
 /* input[type="submit"]:hover,
 input[type="reset"]:hover{
     background-color: rgb(5, 234, 100);

@@ -21,7 +21,7 @@ export const Checkout = ({ Cart, checkoutHandler }) => {
     // console.log("open",isOpen, onOpen, onClose )
     return (
       <Box>
-        <Button
+        <Button disabled={Cart.length==0}
               rounded={'none'}
               w={'full'}
               mt={8}
